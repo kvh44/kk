@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Bootstrap datetime picker</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="/bower_components/jquery/dist/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
+        <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"></script>
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class='col-md-5'>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker6'>
+                        <input type='text' class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class='col-md-5'>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker7'>
+                        <input type='text' class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                var newDate = new Date();
+                var year = newDate.getFullYear();
+                var month = newDate.getMonth();
+                var date = newDate.getDate();
+                var hour = newDate.getHours();
+                var minute = newDate.getMinutes();
+                
+                console.log(year);
+                $('#datetimepicker6').datetimepicker({
+                    minDate: new Date(),
+                    format: 'YYYY-MM-DD HH:mm'
+                });
+                $('#datetimepicker7').datetimepicker({
+                    minDate: new Date(year, month, date, 23, 59, 59),
+                    defaultDate: new Date(year, month, date, 23, 59, 59),
+                    useCurrent: true,
+                    format: 'YYYY-MM-DD HH:mm'
+                });
+                $("#datetimepicker6").on("dp.change", function (e) {
+                    console.log(e.date);
+                    $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+                });
+                $("#datetimepicker7").on("dp.change", function (e) {
+                    $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+                });
+                
+                $("#datetimepicker6").on("dp.error", function (e) {
+                    console.log(e.date);
+                });
+            });
+        </script>
+    </body>
+</html>
